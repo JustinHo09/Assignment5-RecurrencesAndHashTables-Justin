@@ -8,10 +8,23 @@ public class Radix {
     }
 
     public static void stringRadix(String[] s){
-        HashMap<Integer,String[]> buckets = new HashMap<>();
-        
+        // find the length of longest string which determines number of iterations
+        int maxLength =0;
+        for(int q = 0; q <s.length; q++){
+            if(s[q].length() > maxLength){
+                maxLength = s[q].length();
+            }
+        }
 
+        for(int i=0; i < maxLength; i++){
+            HashMap<Integer,String[]> buckets = new HashMap<>();
 
+            // this will be ht HashMap key and is the precedent and ordering of the buckets
+            // 0 = null, 1 = non letter, 2-27 a-z
+            int [] counts = new int[28];
+
+            
+        }
 
 
 
