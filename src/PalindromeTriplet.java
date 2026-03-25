@@ -2,16 +2,53 @@ public class PalindromeTriplet {
 
     public static void main(String[] args){
         String[] test = {"race","car","ecar",""};
-
         int [] [] result = tripletIndex(test);
+        for(int i=0; i < result.length; i++){
+            System.out.println("{"+result[i][0]+", "+result[i][1]+", "+result[i][2]+"}");
+        }
+
+        System.out.println("--------------");
+
+        String[] test2 = {"RaC", "E", "cAr", ""};
+        result = tripletIndex(test2);
+        for(int i=0; i < result.length; i++){
+            System.out.println("{"+result[i][0]+", "+result[i][1]+", "+result[i][2]+"}");
+        }
     }
 
     public static int[][] tripletIndex(String[] input){
+
         int rowNum = 0;
         // check how many triplets are in there to determine the number of rows
+        for(int i = 0; i < input.length; i++){
+            for(int j = 0; j < input.length; j++){
+                for(int k = 0; k < input.length; k++){
+                    if(i != j && j != k && i != k){
+                        if(isPalindromeTriplet(input[i],input[j],input[k])){
+                            rowNum++;
+                        }
+                    }
+                }
+            }
+        }
 
         int[][] result = new int[rowNum][3];
+        int index = 0;
         // go through triplets again to now fill the 2D array
+        for(int i = 0; i < input.length; i++){
+            for(int j = 0; j < input.length; j++){
+                for(int k = 0; k < input.length; k++){
+                    if(i != j && j != k && i != k){
+                        if(isPalindromeTriplet(input[i],input[j],input[k])){
+                            result[index][0] = i;
+                            result[index][1] = j;
+                            result[index][2] = k;
+                            index++;
+                        }
+                    }
+                }
+            }
+        }
 
 
         return result;
@@ -30,7 +67,7 @@ public class PalindromeTriplet {
             // left-most is at i
             if(left < i.length()){
                 lefty = i.charAt(left);
-            }else if(left > i.length()-1 && left < i.length()+j.length()){
+            }else if(left < i.length()+j.length()){
                 // left is at j and adjust it to the left equivalent of j
                 lefty = j.charAt(left - i.length());
             }else{
