@@ -1,5 +1,10 @@
 public class PalindromeTriplet {
 
+    /**
+     * Performs tests and prints the results of finding a palindrome triplet with the
+     * tripletIndex() method from an array of strings.
+     * @param args User input, not used in this.
+     */
     public static void main(String[] args){
         String[] test = {"race","car","ecar",""};
         int [] [] result = tripletIndex(test);
@@ -16,6 +21,14 @@ public class PalindromeTriplet {
         }
     }
 
+    /**
+     * Find all possible palindrome triplet combinations from an array of strings
+     * and returns a 2D array containing the index from the input of the strings
+     * that from the palindrome triplet in the order i, j, k.
+     * @param input Array of strings to find the index of palindrome triplets.
+     * @return A 2D integer array with the index of every possible palindrome triplet
+     *         in the order i, j, k.
+     */
     public static int[][] tripletIndex(String[] input){
 
         int rowNum = 0;
@@ -33,6 +46,7 @@ public class PalindromeTriplet {
         }
 
         int[][] result = new int[rowNum][3];
+        // keep track of row index
         int index = 0;
         // go through triplets again to now fill the 2D array
         for(int i = 0; i < input.length; i++){
@@ -40,6 +54,7 @@ public class PalindromeTriplet {
                 for(int k = 0; k < input.length; k++){
                     if(i != j && j != k && i != k){
                         if(isPalindromeTriplet(input[i],input[j],input[k])){
+                            // add it in the order i, j, and k
                             result[index][0] = i;
                             result[index][1] = j;
                             result[index][2] = k;
@@ -54,14 +69,25 @@ public class PalindromeTriplet {
         return result;
     }
 
+    /**
+     * Checks if three strings, in their order, are a palindrome triplet, by checking
+     * the front and back, and moving in until the middle is reached, or at any point
+     * the left and right character do not match. It is analyzed as if it were one string
+     * in the form i + j +k.
+     * @param i The first string, which is the left section the potential palindrome.
+     * @param j The second string, which is the middle section of the potential palindrome.
+     * @param k The third string, which is the right section of the potential palindrome
+     * @return True if the three strings are a palindrome triplet, False if not.
+     */
     private static boolean isPalindromeTriplet(String i, String j, String k){
+        // two pointers to analyze it as if it were one continuous string.
         int left = 0;
         int right = i.length() + j.length() + k.length()-1;
         char lefty;
         char righty;
+
         // loop throught end and front until they cross, to check if it matches, then
         // return false if they don't at any point
-
         while(left < right){
             //find left-most
             // left-most is at i
@@ -87,6 +113,8 @@ public class PalindromeTriplet {
                 righty = i.charAt(right);
             }
 
+            // checks if left and right are not a pair, and if not it's not a
+            // palindrome
             if(!caseAndPair(lefty,righty)){
                 return false;
             }
@@ -98,6 +126,13 @@ public class PalindromeTriplet {
         return true;
     }
 
+    /**
+     * Check is two characters are a matching pair, meaning they are the same letter
+     * regardless if it is upper or lower case.
+     * @param first The first character in the pair to check.
+     * @param second The second character in the pair to check.
+     * @return True if the two are the same letter, False if they are not.
+     */
     private static boolean caseAndPair(char first, char second){
         if((first == 'a' || first == 'A') && (second == 'a' || second == 'A')){
             return true;
