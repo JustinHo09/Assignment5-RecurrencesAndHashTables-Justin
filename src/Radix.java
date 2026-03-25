@@ -1,6 +1,17 @@
+/**
+ * This class performs and runs tests on a lexicographic radix sort algorithm
+ * for an array of strings.
+ * This utilizes the HashMap collection to make buckets each possible character.
+ */
+
 import java.util.HashMap;
 public class Radix {
 
+    /**
+     * Runs 5 test cases on stringRadix() method to test if it does sort the
+     * inputs correctly.
+     * @param args User input not used here
+     */
     public static void main(String[] args){
         String[] tests = {"google",	"gojo",	"amazingly", "jogo",	"luna",	"pup",	"solas",	"solo",	"pupperino",
                 "amaterasu", "amazon",	"puppy",	"hydra",	"amazonia",	"vueltiao", "ama"};
@@ -26,6 +37,11 @@ public class Radix {
 
     }
 
+    /**
+     * Performs a radix sort on an array of string ordering them lexicographically, and then
+     * prints the final sorted array.
+     * @param s The input array of Strings to sort.
+     */
     public static void stringRadix(String[] s){
         // find the length of longest string which determines number of iterations
         int maxLength =0;
@@ -35,6 +51,7 @@ public class Radix {
             }
         }
 
+        // Iterate through every character
         for(int i=maxLength-1; i >= 0; i--){
             HashMap<Integer,String[]> buckets = new HashMap<>();
 
@@ -52,7 +69,7 @@ public class Radix {
             }
 
             //Intitilizes buckets to be an array of this size.
-            // only 53 becuase there are only 53 options its a lowercase
+            // only 53 becuase there are only 53 options it's a lowercase
             // letter, 26, uperecase letter, 26, or null 1
             // so total of 53 buckeets.
             for(int k=0; k <counts.length; k++){
@@ -95,6 +112,12 @@ public class Radix {
         }
     }
 
+    /**
+     * Retrieves the inserted characters precedent value.
+     * @param c The character to get the precedent value of.
+     * @return An integer 1-52 representing its precedent among letter characters and -1 if
+     *         is not a letter character.
+     */
     private static int charPrec(char c){
         if(c == 'A'){
             return 1;
