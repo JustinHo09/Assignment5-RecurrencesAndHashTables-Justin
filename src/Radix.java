@@ -32,6 +32,27 @@ public class Radix {
                 }
             }
 
+            //Intitilizes buckets to be an array of this size.
+            // only 28 becuase there are only 28 options its a letter, 26, non letter 1, or null 1
+            // so total of 28 buckeets.
+            for(int k=0; k <28; k++){
+                if(counts[k] > 0){
+                    buckets.put(k,new String[counts[k]]);
+                }
+            }
+
+            // Fill the buckets
+            // keep track of the current index of array of the current bucket
+            int[] tempCount = new int [28];
+            int key = 0;
+            for(int m = 0; m < s.length; m++){
+                key = charPrec(s[m].charAt(i));
+                buckets.get(key)[tempCount[key]] = s[m];
+                tempCount[key] = tempCount[key] +1;
+            }
+
+            
+
         }
 
         //prints the sorted array.
