@@ -10,13 +10,13 @@ public class Radix {
     public static void stringRadix(String[] s){
         // find the length of longest string which determines number of iterations
         int maxLength =0;
-        for(int q = 0; q <s.length; q++){
-            if(s[q].length() > maxLength){
-                maxLength = s[q].length();
+        for(int j = 0; j <s.length; j++){
+            if(s[j].length() > maxLength){
+                maxLength = s[j].length();
             }
         }
 
-        for(int i=0; i < maxLength; i++){
+        for(int i=maxLength-1; i >= 0; i--){
             HashMap<Integer,String[]> buckets = new HashMap<>();
 
             // this will be ht HashMap key and is the precedent and ordering of the buckets
@@ -25,10 +25,10 @@ public class Radix {
 
             // get the count for each 'current' character for each string
             for(int j = 0; j < s.length;j++){
-                if(s[j].length() < s.length){
-                    counts[0] = counts[0] +1;
-                }else{
+                if(i < s[j].length()){
                     counts[charPrec(s[j].charAt(i))] = counts[charPrec(s[j].charAt(i))]+1;
+                }else{
+                    counts[0] = counts[0] +1;
                 }
             }
 
@@ -36,28 +36,42 @@ public class Radix {
             // only 28 becuase there are only 28 options its a letter, 26, non letter 1, or null 1
             // so total of 28 buckeets.
             for(int k=0; k <28; k++){
-                if(counts[k] > 0){
-                    buckets.put(k,new String[counts[k]]);
-                }
+                buckets.put(k,new String[counts[k]]);
             }
 
             // Fill the buckets
             // keep track of the current index of array of the current bucket
             int[] tempCount = new int [28];
             int key = 0;
-            for(int m = 0; m < s.length; m++){
-                key = charPrec(s[m].charAt(i));
-                buckets.get(key)[tempCount[key]] = s[m];
+            for(int j = 0; j < s.length; j++){
+                if(i < s[j].length()) {
+                    key = charPrec(s[j].charAt(i));
+                }else{
+                    key =0;
+                }
+                buckets.get(key)[tempCount[key]] = s[j];
                 tempCount[key] = tempCount[key] +1;
             }
 
-            
+            // Reconstruct the array from the buckets
+            // keep track of starting index to replace in original array.
+            int reIndex = 0;
+            // only 28 since 28 buckets
+            for(int h=0; h < 28; h++){
+                // the bucket has at least an element
+                if(buckets.get(h).length !=0){
+                    for(int m = 0; m < buckets.get(h).length; m ++){
+                        s[reIndex] = buckets.get(h)[m];
+                        reIndex++;
+                    }
+                }
+            }
 
         }
 
         //prints the sorted array.
         for(int p = 0; p<s.length; p++){
-            System.out.print(s+",");
+            System.out.print(s[p]+",");
         }
     }
 
