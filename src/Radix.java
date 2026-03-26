@@ -53,7 +53,8 @@ public class Radix {
 
         // Iterate through every character
         for(int i=maxLength-1; i >= 0; i--){
-            HashMap<Integer,String[]> buckets = new HashMap<>();
+            String[][] mapBuckets = new String[53][];
+            //HashMap<Integer,String[]> buckets = new HashMap<>();
 
             // this will be ht HashMap key and is the precedent and ordering of the buckets
             // 0 = null, 1-26 A-Z, 27-52 a-z
@@ -73,7 +74,8 @@ public class Radix {
             // letter, 26, uperecase letter, 26, or null 1
             // so total of 53 buckeets.
             for(int k=0; k <counts.length; k++){
-                buckets.put(k,new String[counts[k]]);
+                mapBuckets[k] = new String[counts[k]];
+                //buckets.put(k,new String[counts[k]]);
             }
 
             // Fill the buckets
@@ -86,7 +88,8 @@ public class Radix {
                 }else{
                     key =0;
                 }
-                buckets.get(key)[tempCount[key]] = s[j];
+                mapBuckets[key][tempCount[key]] = s[j];
+                //buckets.get(key)[tempCount[key]] = s[j];
                 tempCount[key] = tempCount[key] +1;
             }
 
@@ -96,12 +99,18 @@ public class Radix {
             // only 53 since 53 buckets
             for(int h=0; h < counts.length; h++){
                 // the bucket has at least an element
-                if(buckets.get(h).length !=0){
-                    for(int m = 0; m < buckets.get(h).length; m ++){
-                        s[reIndex] = buckets.get(h)[m];
+                if(mapBuckets[h].length != 0){
+                    for(int m = 0; m < mapBuckets[h].length; m++){
+                        s[reIndex] = mapBuckets[h][m];
                         reIndex++;
                     }
                 }
+//                if(buckets.get(h).length !=0){
+//                    for(int m = 0; m < buckets.get(h).length; m ++){
+//                        s[reIndex] = buckets.get(h)[m];
+//                        reIndex++;
+//                    }
+//                }
             }
 
         }
