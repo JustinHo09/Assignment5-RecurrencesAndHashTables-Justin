@@ -117,7 +117,7 @@ public class Radix {
 
         //prints the sorted array.
         for(int p = 0; p<s.length; p++){
-            System.out.print(s[p]+",");
+            System.out.println(s[p]);
         }
     }
 
